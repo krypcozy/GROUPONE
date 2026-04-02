@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="style.css">
+    <title>Cozy’s | Corporate Retail</title>
+</head>
+<body>
+    <nav>
+        <div class="logo">COZY’S</div>
+        <div style="display: flex; gap: 20px; align-items: center;">
+            <div style="color:white">Wallet: <span id="balance">₦0.00</span></div>
+            <div style="color:white; cursor: pointer;" onclick="window.location.href='cart.html'">Cart: <span id="cart-count">0</span> items</div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Search Bar -->
+        <div class="search-bar" style="background: var(--secondary-dark); padding: 15px; margin-bottom: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); border: 1px solid var(--border-color);">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <input type="text" placeholder="🔍 Search products..." style="flex: 1; padding: 12px; border: 2px solid var(--accent-blue); border-radius: 25px; font-size: 16px; background: var(--accent-dark); color: var(--text-light);">
+                <button style="background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple)); color: var(--text-light); border: none; padding: 12px 20px; border-radius: 25px; cursor: pointer; font-weight: bold; box-shadow: 0 2px 8px rgba(74, 144, 226, 0.3);">📷</button>
+                <button style="background: linear-gradient(135deg, var(--accent-purple), var(--accent-green)); color: var(--text-light); border: none; padding: 12px 20px; border-radius: 25px; cursor: pointer; font-weight: bold; box-shadow: 0 2px 8px rgba(155, 89, 182, 0.3);">🔎</button>
+            </div>
+        </div>
+
+        <!-- Category Filters -->
+        <div class="category-filters" style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
+            <button class="category-btn active" data-category="all" style="background: var(--accent-blue); color: var(--text-light); border: 1px solid var(--accent-blue); padding: 10px 20px; border-radius: 20px; cursor: pointer; font-weight: bold; box-shadow: 0 0 15px rgba(74, 144, 226, 0.3);">All</button>
+            <button class="category-btn" data-category="electronics" style="background: var(--accent-dark); color: var(--text-light); border: 1px solid var(--border-color); padding: 10px 20px; border-radius: 20px; cursor: pointer;">📱 Electronics</button>
+            <button class="category-btn" data-category="fashion" style="background: var(--accent-dark); color: var(--text-light); border: 1px solid var(--border-color); padding: 10px 20px; border-radius: 20px; cursor: pointer;">👔 Fashion</button>
+            <button class="category-btn" data-category="home" style="background: var(--accent-dark); color: var(--text-light); border: 1px solid var(--border-color); padding: 10px 20px; border-radius: 20px; cursor: pointer;">🏠 Home & Garden</button>
+            <button class="category-btn" data-category="gaming" style="background: var(--accent-dark); color: var(--text-light); border: 1px solid var(--border-color); padding: 10px 20px; border-radius: 20px; cursor: pointer;">🎮 Gaming</button>
+        </div>
+
+        <!-- Filter Buttons -->
+        <div class="filter-buttons" style="display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap;">
+            <button class="filter-btn" style="background: linear-gradient(135deg, #fff3cd, #ffeaa7); color: #856404; border: 2px solid #ffeaa7; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-weight: bold;">⚡️ Deals</button>
+            <button class="filter-btn" style="background: linear-gradient(135deg, #d1ecf1, #bee5eb); color: #0c5460; border: 2px solid #bee5eb; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-weight: bold;">⭐️ Top Rated</button>
+            <button class="filter-btn" style="background: linear-gradient(135deg, #f8d7da, #f5c6cb); color: #721c24; border: 2px solid #f5c6cb; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-weight: bold;">🔥 Best Sellers</button>
+        </div>
+
+        <!-- Banner -->
+        <div class="banner" style="background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple)); color: var(--text-light); padding: 15px; border-radius: 15px; margin-bottom: 30px; text-align: center; font-weight: bold; box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);">
+            📢 Free Shipping | Easy Returns | Up to 70% Discounts
+        </div>
+
+        <h2 style="text-align: center; margin-bottom: 30px; color: var(--accent-blue); text-shadow: 0 2px 4px var(--shadow-color);">Shop Amazing Deals</h2>
+        
+        <div class="product-container" id="grid">
+            <!-- Hardcoded Products -->
+            <div class="product-card" data-category="electronics">
+                <img src="phone.jpg" alt="iPhone 15" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <h3 style="font-size: 1.1rem; margin: 0;">iPhone 15 Pro Max</h3>
+                        <button class="favorite-btn" onclick="addToFavorites(1, 'iPhone 15 Pro Max', 1850000, 'Latest iPhone with Pro camera system')" style="background: none; border: none; font-size: 1.5rem; cursor: pointer;">🤍</button>
+                    </div>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (245)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦1,850,000</p>
+                    <p class="sales">Sold: 1,200</p>
+                    <button class="btn-gold" onclick="addToCart('iPhone 15 Pro Max', 1850000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="home">
+                <img src="tv.jpg" alt="Samsung TV" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">Samsung 55" 4K Smart TV</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (189)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦950,000</p>
+                    <p class="sales">Sold: 850</p>
+                    <button class="btn-gold" onclick="addToCart('Samsung 55&quot; 4K Smart TV', 950000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="electronics">
+                <img src="mac.jpg" alt="MacBook Air" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">MacBook Air M3</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (156)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦2,100,000</p>
+                    <p class="sales">Sold: 620</p>
+                    <button class="btn-gold" onclick="addToCart('MacBook Air M3', 2100000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="electronics">
+                <img src="airpods.jpg" alt="AirPods" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">AirPods Pro (2nd Gen)</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (320)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦185,000</p>
+                    <p class="sales">Sold: 2,100</p>
+                    <p class="urgency">🔥 Hot Deal!</p>
+                    <button class="btn-gold" onclick="addToCart('AirPods Pro (2nd Gen)', 185000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="electronics">
+                <img src="ipad.jpg" alt="iPad" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">iPad Pro 12.9"</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (98)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦1,450,000</p>
+                    <p class="sales">Sold: 340</p>
+                    <button class="btn-gold" onclick="addToCart('iPad Pro 12.9&quot;', 1450000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="gaming">
+                <img src="playstation.jpg" alt="PlayStation 5" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">PlayStation 5 Console</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (412)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦650,000</p>
+                    <p class="sales">Sold: 1,850</p>
+                    <button class="btn-gold" onclick="addToCart('PlayStation 5 Console', 650000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="fashion">
+                <img src="nie.jpg" alt="Nike Shoes" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">Nike Air Max 270</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (267)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦95,000</p>
+                    <p class="sales">Sold: 1,450</p>
+                    <p class="urgency">🔥 Hot Deal!</p>
+                    <button class="btn-gold" onclick="addToCart('Nike Air Max 270', 95000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="fashion">
+                <img src="bag1.jpg" alt="Designer Bag" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">Gucci Leather Tote</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (78)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦850,000</p>
+                    <p class="sales">Sold: 95</p>
+                    <button class="btn-gold" onclick="addToCart('Gucci Leather Tote', 850000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="home">
+                <img src="fridge.jpg" alt="Refrigerator" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">LG Double Door Fridge</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (134)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦1,200,000</p>
+                    <p class="sales">Sold: 420</p>
+                    <button class="btn-gold" onclick="addToCart('LG Double Door Fridge', 1200000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="home">
+                <img src="washing.jpg" alt="Washing Machine" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">Samsung Front Load Washer</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (92)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦750,000</p>
+                    <p class="sales">Sold: 280</p>
+                    <button class="btn-gold" onclick="addToCart('Samsung Front Load Washer', 750000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="home">
+                <img src="oven.jpg" alt="Microwave" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">LG Convection Microwave</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (156)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦180,000</p>
+                    <p class="sales">Sold: 720</p>
+                    <p class="urgency">🔥 Hot Deal!</p>
+                    <button class="btn-gold" onclick="addToCart('LG Convection Microwave', 180000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="home">
+                <img src="ac.jpg" alt="Air Conditioner" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">Daikin Split AC 1.5HP</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (203)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦450,000</p>
+                    <p class="sales">Sold: 890</p>
+                    <button class="btn-gold" onclick="addToCart('Daikin Split AC 1.5HP', 450000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="home">
+                <img src="kucin.jpg" alt="Sofa" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">3-Seater Leather Sofa</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (67)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦680,000</p>
+                    <p class="sales">Sold: 145</p>
+                    <button class="btn-gold" onclick="addToCart('3-Seater Leather Sofa', 680000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="home">
+                <img src="dining.jpg" alt="Dining Table" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">6-Seater Dining Set</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (89)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦420,000</p>
+                    <p class="sales">Sold: 210</p>
+                    <button class="btn-gold" onclick="addToCart('6-Seater Dining Set', 420000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="home">
+                <img src="bed.jpg" alt="Bed Frame" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">King Size Bed Frame</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (45)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦350,000</p>
+                    <p class="sales">Sold: 78</p>
+                    <button class="btn-gold" onclick="addToCart('King Size Bed Frame', 350000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="home">
+                <img src="chair.jpg" alt="Office Chair" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">Ergonomic Office Chair</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (178)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦95,000</p>
+                    <p class="sales">Sold: 650</p>
+                    <p class="urgency">🔥 Hot Deal!</p>
+                    <button class="btn-gold" onclick="addToCart('Ergonomic Office Chair', 95000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="electronics">
+                <img src="desktop.jpg" alt="Monitor" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">27" 4K Gaming Monitor</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (234)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦285,000</p>
+                    <p class="sales">Sold: 920</p>
+                    <button class="btn-gold" onclick="addToCart('27&quot; 4K Gaming Monitor', 285000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="electronics">
+                <img src="keyboard.jpg" alt="Keyboard" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">Mechanical Gaming Keyboard</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (312)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦45,000</p>
+                    <p class="sales">Sold: 1,340</p>
+                    <p class="urgency">🔥 Hot Deal!</p>
+                    <button class="btn-gold" onclick="addToCart('Mechanical Gaming Keyboard', 45000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="electronics">
+                <img src="mouse.jpg" alt="Mouse" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">Wireless Gaming Mouse</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (289)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦25,000</p>
+                    <p class="sales">Sold: 1,120</p>
+                    <p class="urgency">🔥 Hot Deal!</p>
+                    <button class="btn-gold" onclick="addToCart('Wireless Gaming Mouse', 25000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="electronics">
+                <img src="headset.jpg" alt="Headphones" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">Sony WH-1000XM5</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (198)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦320,000</p>
+                    <p class="sales">Sold: 780</p>
+                    <button class="btn-gold" onclick="addToCart('Sony WH-1000XM5', 320000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="electronics">
+                <img src="s24.jpg" alt="Smartphone" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">Samsung Galaxy S24 Ultra</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (167)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦1,650,000</p>
+                    <p class="sales">Sold: 890</p>
+                    <button class="btn-gold" onclick="addToCart('Samsung Galaxy S24 Ultra', 1650000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="electronics">
+                <img src="tab.jpg" alt="Tablet" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">Samsung Galaxy Tab S9</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (123)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦580,000</p>
+                    <p class="sales">Sold: 450</p>
+                    <button class="btn-gold" onclick="addToCart('Samsung Galaxy Tab S9', 580000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="electronics">
+                <img src="camera.jpg" alt="Camera" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">Canon EOS R6</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (76)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦2,800,000</p>
+                    <p class="sales">Sold: 120</p>
+                    <button class="btn-gold" onclick="addToCart('Canon EOS R6', 2800000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="electronics">
+                <img src="drone.jpg" alt="Drone" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">DJI Mini 3 Pro Drone</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (145)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦750,000</p>
+                    <p class="sales">Sold: 380</p>
+                    <button class="btn-gold" onclick="addToCart('DJI Mini 3 Pro Drone', 750000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="electronics">
+                <img src="watch.jpg" alt="Smart Watch" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">Apple Watch Series 9</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (234)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦420,000</p>
+                    <p class="sales">Sold: 950</p>
+                    <button class="btn-gold" onclick="addToCart('Apple Watch Series 9', 420000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="electronics">
+                <img src="jbl.jpg" alt="Bluetooth Speaker" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">JBL GO 3 Portable Speaker</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (356)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦35,000</p>
+                    <p class="sales">Sold: 1,680</p>
+                    <p class="urgency">🔥 Hot Deal!</p>
+                    <button class="btn-gold" onclick="addToCart('JBL GO 3 Portable Speaker', 35000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="electronics">
+                <img src="pb.jpg" alt="Power Bank" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">20000mAh Power Bank</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (423)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦18,000</p>
+                    <p class="sales">Sold: 2,450</p>
+                    <p class="urgency">🔥 Hot Deal!</p>
+                    <button class="btn-gold" onclick="addToCart('20000mAh Power Bank', 18000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="electronics">
+                <img src="mcbook.jpg" alt="Laptop" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">Dell XPS 13</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (89)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦1,350,000</p>
+                    <p class="sales">Sold: 320</p>
+                    <button class="btn-gold" onclick="addToCart('Dell XPS 13', 1350000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="electronics">
+                <img src="printer.jpg" alt="Printer" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">HP LaserJet Pro</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (134)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦125,000</p>
+                    <p class="sales">Sold: 580</p>
+                    <button class="btn-gold" onclick="addToCart('HP LaserJet Pro', 125000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="electronics">
+                <img src="router.jpg" alt="Router" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">TP-Link WiFi 6 Router</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (201)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦45,000</p>
+                    <p class="sales">Sold: 890</p>
+                    <p class="urgency">🔥 Hot Deal!</p>
+                    <button class="btn-gold" onclick="addToCart('TP-Link WiFi 6 Router', 45000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="electronics">
+                <img src="chip.jpg" alt="External HDD" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">2TB External Hard Drive</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (278)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦35,000</p>
+                    <p class="sales">Sold: 1,230</p>
+                    <p class="urgency">🔥 Hot Deal!</p>
+                    <button class="btn-gold" onclick="addToCart('2TB External Hard Drive', 35000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="electronics">
+                <img src="chip1.jpg" alt="SSD" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">1TB NVMe SSD</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (167)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦65,000</p>
+                    <p class="sales">Sold: 720</p>
+                    <button class="btn-gold" onclick="addToCart('1TB NVMe SSD', 65000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="electronics">
+                <img src="fan.jpg" alt="Graphics Card" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">RTX 4070 Graphics Card</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (45)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦1,200,000</p>
+                    <p class="sales">Sold: 85</p>
+                    <button class="btn-gold" onclick="addToCart('RTX 4070 Graphics Card', 1200000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="gaming">
+                <img src="chair1.jpg" alt="Gaming Chair" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">RGB Gaming Chair</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (189)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦85,000</p>
+                    <p class="sales">Sold: 650</p>
+                    <p class="urgency">🔥 Hot Deal!</p>
+                    <button class="btn-gold" onclick="addToCart('RGB Gaming Chair', 85000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="home">
+                <img src="projector.jpg" alt="Projector" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">4K Home Projector</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (67)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦380,000</p>
+                    <p class="sales">Sold: 145</p>
+                    <button class="btn-gold" onclick="addToCart('4K Home Projector', 380000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="home">
+                <img src="watch.jpg" alt="Smart Home Hub" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">Google Nest Hub Max</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (234)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦185,000</p>
+                    <p class="sales">Sold: 890</p>
+                    <button class="btn-gold" onclick="addToCart('Google Nest Hub Max', 185000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="home">
+                <img src="robot.jpg" alt="Robot Vacuum" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">Roomba Robot Vacuum</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (156)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦450,000</p>
+                    <p class="sales">Sold: 420</p>
+                    <button class="btn-gold" onclick="addToCart('Roomba Robot Vacuum', 450000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="home">
+                <img src="cofee.jpg" alt="Coffee Machine" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">Nespresso Coffee Machine</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (198)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦95,000</p>
+                    <p class="sales">Sold: 780</p>
+                    <p class="urgency">🔥 Hot Deal!</p>
+                    <button class="btn-gold" onclick="addToCart('Nespresso Coffee Machine', 95000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="home">
+                <img src="blender.jpg" alt="Blender" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">Vitamix Professional Blender</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (145)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦285,000</p>
+                    <p class="sales">Sold: 320</p>
+                    <button class="btn-gold" onclick="addToCart('Vitamix Professional Blender', 285000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="home">
+                <img src="ninja.jpg" alt="Air Fryer" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">Ninja Air Fryer Max</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (267)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦85,000</p>
+                    <p class="sales">Sold: 1,450</p>
+                    <p class="urgency">🔥 Hot Deal!</p>
+                    <button class="btn-gold" onclick="addToCart('Ninja Air Fryer Max', 85000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="home">
+                <img src="table.jpg" alt="Standing Desk" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">Electric Standing Desk</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (89)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦195,000</p>
+                    <p class="sales">Sold: 210</p>
+                    <button class="btn-gold" onclick="addToCart('Electric Standing Desk', 195000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="electronics">
+                <img src="flashcharger.jpg" alt="Wireless Charger" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">15W MagSafe Charger</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (345)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦25,000</p>
+                    <p class="sales">Sold: 1,890</p>
+                    <p class="urgency">🔥 Hot Deal!</p>
+                    <button class="btn-gold" onclick="addToCart('15W MagSafe Charger', 25000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="gaming">
+                <img src="vg.jpg" alt="VR Headset" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">Meta Quest 3</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (178)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦380,000</p>
+                    <p class="sales">Sold: 650</p>
+                    <button class="btn-gold" onclick="addToCart('Meta Quest 3', 380000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="fashion">
+                <img src="bike.jpg" alt="E-Bike" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">Electric Mountain Bike</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (67)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦1,850,000</p>
+                    <p class="sales">Sold: 145</p>
+                    <button class="btn-gold" onclick="addToCart('Electric Mountain Bike', 1850000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="fashion">
+                <img src="running.jpg" alt="Treadmill" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">NordicTrack Treadmill</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (123)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦950,000</p>
+                    <p class="sales">Sold: 380</p>
+                    <button class="btn-gold" onclick="addToCart('NordicTrack Treadmill', 950000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="fashion">
+                <img src="yoga.jpg" alt="Yoga Mat" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">Premium Yoga Mat</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (289)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦15,000</p>
+                    <p class="sales">Sold: 1,450</p>
+                    <p class="urgency">🔥 Hot Deal!</p>
+                    <button class="btn-gold" onclick="addToCart('Premium Yoga Mat', 15000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="fashion">
+                <img src="weight.jpg" alt="Dumbbells" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">Adjustable Dumbbells 20kg</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (201)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦45,000</p>
+                    <p class="sales">Sold: 890</p>
+                    <p class="urgency">🔥 Hot Deal!</p>
+                    <button class="btn-gold" onclick="addToCart('Adjustable Dumbbells 20kg', 45000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="fashion">
+                <img src="whey.jpg" alt="Protein Powder" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">Whey Protein 2kg</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (356)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦28,000</p>
+                    <p class="sales">Sold: 1,680</p>
+                    <p class="urgency">🔥 Hot Deal!</p>
+                    <button class="btn-gold" onclick="addToCart('Whey Protein 2kg', 28000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="fashion">
+                <img src="vitamin.jpg" alt="Vitamins" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">Multivitamin Complex</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (423)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦12,000</p>
+                    <p class="sales">Sold: 2,450</p>
+                    <p class="urgency">🔥 Hot Deal!</p>
+                    <button class="btn-gold" onclick="addToCart('Multivitamin Complex', 12000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="fashion">
+                <img src="closeup.jpg" alt="Face Mask" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">Skincare Face Mask Set</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (312)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦8,500</p>
+                    <p class="sales">Sold: 1,890</p>
+                    <p class="urgency">🔥 Hot Deal!</p>
+                    <button class="btn-gold" onclick="addToCart('Skincare Face Mask Set', 8500)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="fashion">
+                <img src="perfume.jpg" alt="Perfume" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">Designer Perfume 100ml</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (198)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦45,000</p>
+                    <p class="sales">Sold: 780</p>
+                    <button class="btn-gold" onclick="addToCart('Designer Perfume 100ml', 45000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="fashion">
+                <img src="glass.jpg" alt="Sunglasses" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">Ray-Ban Aviator</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (267)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦85,000</p>
+                    <p class="sales">Sold: 1,120</p>
+                    <button class="btn-gold" onclick="addToCart('Ray-Ban Aviator', 85000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="fashion">
+                <img src="rolex.jpg" alt="Watch" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">Rolex Submariner</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (45)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦15,000,000</p>
+                    <p class="sales">Sold: 12</p>
+                    <button class="btn-gold" onclick="addToCart('Rolex Submariner', 15000000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="fashion">
+                <img src="next.jpg" alt="Jewelry" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">Diamond Necklace</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (23)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦8,500,000</p>
+                    <p class="sales">Sold: 8</p>
+                    <button class="btn-gold" onclick="addToCart('Diamond Necklace', 8500000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="fashion">
+                <img src="lvbag.jpg" alt="Handbag" style="width:100%; height:200px; object-fit:cover; border-radius: 5px;">
+                <div class="product-info">
+                    <h3 style="font-size: 1.1rem; margin: 10px 0;">Louis Vuitton Speedy</h3>
+                    <div class="rating">⭐️⭐️⭐️⭐️⭐️ (67)</div>
+                    <p class="price" style="font-size: 1.2rem; margin: 10px 0;">₦2,800,000</p>
+                    <p class="sales">Sold: 34</p>
+                    <button class="btn-gold" onclick="addToCart('Louis Vuitton Speedy', 2800000)" style="width: 100%; margin-top: 15px;">🛒 Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <div class="nav-item" onclick="window.location.href='index.html'">🏠 Home</div>
+        <div class="nav-item" onclick="document.querySelector('.category-filters').scrollIntoView({behavior: 'smooth'})">🔎 Categories</div>
+        <div class="nav-item" onclick="window.location.href='profile.html'">👤 Profile</div>
+        <div class="nav-item" onclick="window.location.href='cart.html'">🛒 Cart <span id="cart-count">0</span></div>
+    </div>
+
+    <script>
+        let cart = JSON.parse(localStorage.getItem('cozys_cart') || '[]');
+        let currentCategory = 'All';
+        let currentFilter = 'all';
+
+        function updateCartCount() {
+            document.getElementById('cart-count').textContent = cart.length;
+        }
+
+        function addToCart(title, price) {
+            cart.push({ title, price });
+            localStorage.setItem('cozys_cart', JSON.stringify(cart));
+            updateCartCount();
+            alert('Added to cart!');
+        }
+
+        function addToFavorites(productId, name, price, description) {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                alert('Please login to add favorites!');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            fetch('http://localhost:3000/api/favorites', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ productId, name, price, description })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Added to favorites! ❤️');
+                } else {
+                    alert('Failed to add to favorites');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error adding to favorites');
+            });
+        }
+
+        // Category filtering
+        function filterCategory(category) {
+            currentCategory = category;
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
+                btn.style.background = 'var(--accent-dark)';
+                btn.style.color = 'var(--text-light)';
+                btn.style.borderColor = 'var(--border-color)';
+                btn.style.boxShadow = 'none';
+            });
+            
+            // Find and activate the clicked button
+            const clickedBtn = document.querySelector(`[data-category="${category}"]`);
+            if (clickedBtn) {
+                clickedBtn.classList.add('active');
+                clickedBtn.style.background = 'var(--accent-blue)';
+                clickedBtn.style.color = 'var(--text-light)';
+                clickedBtn.style.borderColor = 'var(--accent-blue)';
+                clickedBtn.style.boxShadow = '0 0 15px rgba(74, 144, 226, 0.3)';
+            }
+            
+            applyFilters();
+        }
+
+        // Filter buttons
+        function filterProducts(filterType) {
+            currentFilter = filterType;
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Find and activate the clicked button based on filter type
+            let clickedBtn;
+            if (filterType === 'deals') {
+                clickedBtn = Array.from(document.querySelectorAll('.filter-btn')).find(btn => 
+                    btn.textContent.toLowerCase().includes('deals'));
+            } else if (filterType === 'toprated') {
+                clickedBtn = Array.from(document.querySelectorAll('.filter-btn')).find(btn => 
+                    btn.textContent.toLowerCase().includes('top'));
+            } else if (filterType === 'bestsellers') {
+                clickedBtn = Array.from(document.querySelectorAll('.filter-btn')).find(btn => 
+                    btn.textContent.toLowerCase().includes('best'));
+            }
+            
+            if (clickedBtn) {
+                clickedBtn.classList.add('active');
+            }
+            
+            applyFilters();
+        }
+
+        // Apply combined filters
+        function applyFilters() {
+            const products = document.querySelectorAll('.product-card');
+            
+            products.forEach(product => {
+                let show = true;
+                
+                // Category filter
+                if (currentCategory !== 'All') {
+                    const productCategory = product.getAttribute('data-category');
+                    show = productCategory === currentCategory;
+                }
+                
+                // Filter type
+                if (currentFilter !== 'all') {
+                    const priceText = product.querySelector('.price').textContent;
+                    const price = parseInt(priceText.replace(/[₦,]/g, ''));
+                    
+                    switch(currentFilter) {
+                        case 'deals':
+                            show = show && price < 50000; // Show items under ₦50,000 as deals
+                            break;
+                        case 'toprated':
+                            const rating = product.querySelector('.rating').textContent;
+                            const stars = (rating.match(/⭐️/g) || []).length;
+                            show = show && stars >= 4; // Show 4+ star items
+                            break;
+                        case 'bestsellers':
+                            const salesText = product.querySelector('.sales').textContent;
+                            const sales = parseInt(salesText.replace(/\D/g, ''));
+                            show = show && sales > 500; // Show items with >500 sales
+                            break;
+                    }
+                }
+                
+                product.style.display = show ? 'block' : 'none';
+            });
+        }
+
+        // Search functionality
+        function searchProducts() {
+            const searchTerm = document.querySelector('.search-bar input').value.toLowerCase();
+            const products = document.querySelectorAll('.product-card');
+            
+            products.forEach(product => {
+                const title = product.querySelector('h3').textContent.toLowerCase();
+                const show = title.includes(searchTerm);
+                product.style.display = show ? 'block' : 'none';
+            });
+        }
+
+        // Initialize event listeners
+        window.onload = function() {
+            // Check if user is authenticated
+            const token = localStorage.getItem('token');
+            if (!token) {
+                alert('Please login to access the product catalog.');
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            updateCartCount();
+            
+            // Check URL parameters for category
+            const urlParams = new URLSearchParams(window.location.search);
+            const categoryParam = urlParams.get('category');
+            if (categoryParam) {
+                filterCategory(categoryParam);
+            }
+            
+            // Category button listeners
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const category = btn.getAttribute('data-category') || 'all';
+                    filterCategory(category);
+                });
+            });
+            
+            // Filter button listeners
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const filterType = btn.textContent.toLowerCase().includes('deals') ? 'deals' :
+                                     btn.textContent.toLowerCase().includes('top') ? 'toprated' :
+                                     btn.textContent.toLowerCase().includes('best') ? 'bestsellers' : 'all';
+                    filterProducts(filterType);
+                });
+            });
+            
+            // Search input listener
+            document.querySelector('.search-bar input').addEventListener('input', searchProducts);
+        };
+    </script>
+</body>
+</html></content>
+<parameter name="filePath">c:\Users\HP\Desktop\G1\cozys-platform\public\product.html

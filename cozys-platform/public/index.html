@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <title>Cozy - Shop Amazing Deals</title>
+    <style>
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; }
+        .hero { 
+            background: linear-gradient(135deg, var(--temu-red) 0%, var(--temu-orange) 100%); 
+            color: white; 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            text-align: center; 
+            padding: 20px; 
+        }
+        .hero h1 { font-size: 3rem; margin-bottom: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .hero p { font-size: 1.2rem; margin-bottom: 40px; max-width: 600px; }
+        .btn-hero { 
+            background: var(--temu-yellow); 
+            color: var(--temu-dark); 
+            padding: 15px 30px; 
+            text-decoration: none; 
+            border-radius: 25px; 
+            font-weight: bold; 
+            font-size: 1.1rem; 
+            transition: 0.3s; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2); 
+        }
+        .btn-hero:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.3); }
+        .features { display: flex; justify-content: center; gap: 30px; margin-top: 50px; flex-wrap: wrap; }
+        .feature { background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; backdrop-filter: blur(10px); }
+        .feature h3 { margin-bottom: 10px; }
+        .categories-section { 
+            background: var(--primary-dark); 
+            padding: 50px 20px; 
+            text-align: center; 
+        }
+        .categories-section h2 { 
+            color: var(--text-light); 
+            margin-bottom: 30px; 
+            font-size: 2rem; 
+        }
+        .categories { 
+            display: flex; 
+            justify-content: center; 
+            gap: 20px; 
+            flex-wrap: wrap; 
+        }
+        .category-card { 
+            background: var(--secondary-dark); 
+            border: 1px solid var(--border-color); 
+            border-radius: 15px; 
+            padding: 20px; 
+            width: 200px; 
+            text-align: center; 
+            transition: 0.3s; 
+            cursor: pointer; 
+            box-shadow: 0 4px 15px var(--shadow-color); 
+        }
+        .category-card:hover { 
+            transform: translateY(-5px); 
+            border-color: var(--accent-blue); 
+            box-shadow: 0 8px 25px var(--shadow-color); 
+        }
+        .category-card h3 { 
+            color: var(--accent-blue); 
+            margin-bottom: 10px; 
+        }
+        .category-card p { 
+            color: var(--text-muted); 
+            font-size: 0.9rem; 
+        }
+        .profile-section { 
+            background: var(--secondary-dark); 
+            padding: 50px 20px; 
+            text-align: center; 
+        }
+        .profile-section h2 { 
+            color: var(--text-light); 
+            margin-bottom: 30px; 
+            font-size: 2rem; 
+        }
+        .profile-card { 
+            background: var(--accent-dark); 
+            border: 1px solid var(--border-color); 
+            border-radius: 15px; 
+            padding: 30px; 
+            max-width: 400px; 
+            margin: 0 auto; 
+            box-shadow: 0 4px 15px var(--shadow-color); 
+        }
+        .profile-avatar { 
+            width: 80px; 
+            height: 80px; 
+            border-radius: 50%; 
+            background: var(--accent-blue); 
+            margin: 0 auto 20px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 2rem; 
+        }
+        .profile-info h3 { 
+            color: var(--text-light); 
+            margin-bottom: 10px; 
+        }
+        .profile-stats { 
+            display: flex; 
+            justify-content: space-around; 
+            margin-top: 20px; 
+        }
+        .stat { 
+            text-align: center; 
+        }
+        .stat h4 { 
+            color: var(--accent-gold); 
+            font-size: 1.5rem; 
+            margin-bottom: 5px; 
+        }
+        .stat p { 
+            color: var(--text-muted); 
+            font-size: 0.9rem; 
+        }
+        .btn-profile { 
+            background: var(--accent-blue); 
+            color: var(--text-light); 
+            padding: 10px 20px; 
+            text-decoration: none; 
+            border-radius: 25px; 
+            font-weight: bold; 
+            display: inline-block; 
+            margin-top: 20px; 
+            transition: 0.3s; 
+        }
+        .btn-profile:hover { 
+            background: var(--accent-purple); 
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">COZY'S</div>
+        <div style="display: flex; gap: 20px; align-items: center;">
+            <a href="profile.html" style="color: var(--text-light); text-decoration: none;">👤 Profile</a>
+            <div style="color: var(--text-light); cursor: pointer;" onclick="window.location.href='cart.html'">🛒 Cart: <span id="cart-count">0</span> items</div>
+        </div>
+    </nav>
+    
+    <div class="hero">
+        <h1>🛍️ Welcome to Cozy</h1>
+        <p>Discover amazing deals on premium products. Shop electronics, fashion, home goods and more with free shipping and easy returns!</p>
+        <a href="product.html" class="btn-hero">Start Shopping Now</a>
+        
+        <div class="features">
+            <div class="feature">
+                <h3>⚡️ Flash Deals</h3>
+                <p>Daily discounts on top products</p>
+            </div>
+            <div class="feature">
+                <h3>🚚 Free Shipping</h3>
+                <p>On orders over ₦5,000</p>
+            </div>
+            <div class="feature">
+                <h3>🔄 Easy Returns</h3>
+                <p>30-day return policy</p>
+            </div>
+        </div>
+    </div>
+    
+    <section class="categories-section">
+        <h2>Shop by Category</h2>
+        <div class="categories">
+            <div class="category-card" onclick="window.location.href='product.html?category=fashion'">
+                <h3>👔 Fashion</h3>
+                <p>Trendy clothes for men, women & kids</p>
+            </div>
+            <div class="category-card" onclick="window.location.href='product.html?category=electronics'">
+                <h3>📱 Electronics</h3>
+                <p>Latest gadgets and accessories</p>
+            </div>
+            <div class="category-card" onclick="window.location.href='product.html?category=home'">
+                <h3>🏠 Home & Garden</h3>
+                <p>Everything for your home</p>
+            </div>
+            <div class="category-card" onclick="window.location.href='product.html?category=gaming'">
+                <h3>🎮 Gaming</h3>
+                <p>Gaming consoles and accessories</p>
+            </div>
+            <div class="category-card" onclick="window.location.href='product.html?category=beauty'">
+                <h3>💄 Beauty</h3>
+                <p>Cosmetics and personal care</p>
+            </div>
+            <div class="category-card" onclick="window.location.href='product.html?category=sports'">
+                <h3>⚽ Sports</h3>
+                <p>Sports equipment and apparel</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="profile-section">
+        <h2>Your Account Profile</h2>
+        <div class="profile-card" onclick="window.location.href='profile.html'" style="cursor: pointer;">
+            <div class="profile-avatar">👤</div>
+            <div class="profile-info">
+                <h3>Welcome Back!</h3>
+                <p>Sign in to view your orders, favorites, and more</p>
+            </div>
+            <div class="profile-stats">
+                <div class="stat">
+                    <h4>0</h4>
+                    <p>Orders</p>
+                </div>
+                <div class="stat">
+                    <h4>0</h4>
+                    <p>Favorites</p>
+                </div>
+                <div class="stat">
+                    <h4>₦0</h4>
+                    <p>Spent</p>
+                </div>
+            </div>
+            <a href="login.html" class="btn-profile">Sign In / Sign Up</a>
+        </div>
+    </section>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <div class="nav-item active" onclick="window.location.href='index.html'">🏠 Home</div>
+        <div class="nav-item" onclick="window.location.href='product.html'">🔎 Categories</div>
+        <div class="nav-item" onclick="window.location.href='profile.html'">👤 Profile</div>
+        <div class="nav-item" onclick="window.location.href='cart.html'">🛒 Cart <span id="cart-count">0</span></div>
+    </div>
+
+    <script>
+        // Update cart count on page load
+        window.onload = function() {
+            const cart = JSON.parse(localStorage.getItem('cozys_cart') || '[]');
+            document.getElementById('cart-count').textContent = cart.length;
+        };
+    </script>
+</body>
+</html></content>
+<parameter name="filePath">c:\Users\HP\Desktop\G1\public\index.html

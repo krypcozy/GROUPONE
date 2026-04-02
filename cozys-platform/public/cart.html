@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <title>Your Portfolio | Cozy’s</title>
+    <style>
+        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 20px; border-bottom: 1px solid #eee; background: white; }
+        .cart-logo { width: 30px; height: 30px; fill: #b89552; vertical-align: middle; margin-right: 10px; }
+    </style>
+</head>
+<body>
+    <nav style="background: #121212; padding: 20px 8%; display: flex; justify-content: space-between; align-items: center;">
+        <div class="logo">COZY’S</div>
+        <div style="color: white; font-weight: bold;">
+            <svg class="cart-logo" viewBox="0 0 24 24">
+                <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
+            </svg>
+            MY PORTFOLIO (<span id="count">0</span>)
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Cart Controls -->
+        <div class="cart-controls" style="display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; align-items: center;">
+            <input type="text" id="cart-search" placeholder="🔍 Search in cart..." style="padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; background: var(--accent-dark); color: var(--text-light); flex: 1; min-width: 200px;">
+            <select id="sort-cart" style="padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; background: var(--accent-dark); color: var(--text-light);">
+                <option value="name">Sort by Name</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+                <option value="category">Sort by Category</option>
+            </select>
+            <button onclick="clearCart()" style="background: var(--accent-red); color: var(--text-light); border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer;">🗑️ Clear Cart</button>
+        </div>
+
+        <!-- Category Tabs -->
+        <div class="category-tabs" style="display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap;">
+            <button class="tab-btn active" onclick="filterByCategory('all')" style="background: var(--accent-blue); color: var(--text-light); border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-weight: bold;">All Items</button>
+            <button class="tab-btn" onclick="filterByCategory('electronics')" style="background: var(--accent-dark); color: var(--text-light); border: 1px solid var(--border-color); padding: 10px 20px; border-radius: 20px; cursor: pointer;">📱 Electronics</button>
+            <button class="tab-btn" onclick="filterByCategory('gadgets')" style="background: var(--accent-dark); color: var(--text-light); border: 1px solid var(--border-color); padding: 10px 20px; border-radius: 20px; cursor: pointer;">🎮 Gadgets</button>
+            <button class="tab-btn" onclick="filterByCategory('men')" style="background: var(--accent-dark); color: var(--text-light); border: 1px solid var(--border-color); padding: 10px 20px; border-radius: 20px; cursor: pointer;">👔 Men</button>
+            <button class="tab-btn" onclick="filterByCategory('women')" style="background: var(--accent-dark); color: var(--text-light); border: 1px solid var(--border-color); padding: 10px 20px; border-radius: 20px; cursor: pointer;">👗 Women</button>
+            <button class="tab-btn" onclick="filterByCategory('home')" style="background: var(--accent-dark); color: var(--text-light); border: 1px solid var(--border-color); padding: 10px 20px; border-radius: 20px; cursor: pointer;">🏠 Home</button>
+        </div>
+
+        <h2 style="margin-bottom: 30px; border-left: 5px solid var(--accent-blue); padding-left: 15px; color: var(--text-light);">Review Order Selection</h2>
+
+        <!-- Cart Summary -->
+        <div class="cart-summary" style="background: var(--secondary-dark); padding: 20px; border-radius: 15px; margin-bottom: 20px; border: 1px solid var(--border-color);">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                <div>
+                    <span style="color: var(--text-muted);">Items in Cart:</span>
+                    <span id="item-count" style="color: var(--accent-blue); font-weight: bold; font-size: 1.2rem;">0</span>
+                </div>
+                <div>
+                    <span style="color: var(--text-muted);">Estimated Delivery:</span>
+                    <span style="color: var(--accent-green); font-weight: bold;">2-3 Business Days</span>
+                </div>
+                <div>
+                    <span style="color: var(--text-muted);">Total Savings:</span>
+                    <span id="savings" style="color: var(--accent-gold); font-weight: bold;">₦0.00</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="cart-items-list">
+        </div>
+
+        <!-- Wishlist Section -->
+        <div class="wishlist-section" style="background: var(--secondary-dark); padding: 20px; border-radius: 15px; margin-top: 30px; border: 1px solid var(--border-color);">
+            <h3 style="color: var(--accent-purple); margin-bottom: 15px;">💝 Saved for Later (<span id="wishlist-count">0</span>)</h3>
+            <div id="wishlist-items" style="display: flex; gap: 15px; flex-wrap: wrap;">
+                <!-- Wishlist items will be populated here -->
+            </div>
+        </div>
+
+        <!-- Cart Footer -->
+        <div class="cart-footer" style="background: var(--secondary-dark); padding: 25px; border-radius: 15px; margin-top: 30px; border: 1px solid var(--border-color);">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+                <div class="promo-section">
+                    <input type="text" id="promo-code" placeholder="Enter promo code..." style="padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; background: var(--accent-dark); color: var(--text-light); margin-right: 10px;">
+                    <button onclick="applyPromo()" style="background: var(--accent-green); color: var(--text-light); border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer;">Apply Code</button>
+                    <div id="promo-message" style="margin-top: 10px; color: var(--accent-gold);"></div>
+                </div>
+
+                <div class="checkout-section" style="text-align: right;">
+                    <div style="margin-bottom: 10px;">
+                        <span style="color: var(--text-muted);">Subtotal:</span>
+                        <span id="subtotal" style="color: var(--text-light); font-size: 1.1rem;">₦0.00</span>
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                        <span style="color: var(--text-muted);">Shipping:</span>
+                        <span id="shipping" style="color: var(--accent-green);">FREE</span>
+                    </div>
+                    <div style="margin-bottom: 15px; border-top: 1px solid var(--border-color); padding-top: 10px;">
+                        <span style="color: var(--text-light); font-size: 1.3rem; font-weight: bold;">Total: </span>
+                        <span id="total-price" style="color: var(--accent-gold); font-size: 1.5rem; font-weight: bold;">₦0.00</span>
+                    </div>
+                    <button class="btn-gold" style="width: 100%; max-width: 300px; padding: 15px 30px; font-size: 1.1rem;" onclick="window.location.href='checkout.html'">
+                        🚚 Proceed to Logistics
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <div class="nav-item" onclick="window.location.href='index.html'">🏠 Home</div>
+        <div class="nav-item" onclick="window.location.href='product.html'">🔎 Categories</div>
+        <div class="nav-item" onclick="window.location.href='profile.html'">👤 Profile</div>
+        <div class="nav-item active">🛒 Cart <span id="count">0</span></div>
+    </div>
+
+    <script>
+        // Enhanced cart data structure with categories and quantities
+        let cart = JSON.parse(localStorage.getItem('cozys_cart') || '[]');
+        let wishlist = JSON.parse(localStorage.getItem('cozys_wishlist') || '[]');
+        let currentCategory = 'all';
+        let currentSort = 'name';
+        let promoDiscount = 0;
+
+        // Product categories mapping
+        const productCategories = {
+            'iPhone': 'electronics',
+            'Samsung': 'electronics',
+            'MacBook': 'electronics',
+            'AirPods': 'electronics',
+            'iPad': 'electronics',
+            'PlayStation': 'gadgets',
+            'Nike': 'men',
+            'Designer': 'women',
+            'Gucci': 'women',
+            'LG': 'home',
+            'Samsung Front': 'home',
+            'Daikin': 'home',
+            'Leather': 'home',
+            'Dining': 'home',
+            'Bed': 'home',
+            'Ergonomic': 'home',
+            'Gaming': 'gadgets',
+            'Mechanical': 'gadgets',
+            'Wireless': 'gadgets',
+            'Sony': 'electronics',
+            'Galaxy': 'electronics',
+            'Tab': 'electronics',
+            'Camera': 'gadgets',
+            'DJI': 'gadgets',
+            'Apple Watch': 'electronics',
+            'Portable': 'gadgets',
+            'Power Bank': 'gadgets',
+            'Dell': 'electronics',
+            'HP': 'electronics',
+            'TP-Link': 'electronics',
+            'External': 'gadgets',
+            'NVMe': 'gadgets',
+            'Graphics': 'gadgets',
+            'RGB': 'gadgets',
+            'Projector': 'gadgets',
+            'Google': 'gadgets',
+            'Roomba': 'home',
+            'Nespresso': 'home',
+            'Vitamix': 'home',
+            'Air Fryer': 'home',
+            'Standing': 'home',
+            'MagSafe': 'electronics',
+            'Quest': 'gadgets',
+            'Mountain': 'men',
+            'Treadmill': 'men',
+            'Yoga': 'women',
+            'Dumbbells': 'men',
+            'Protein': 'men',
+            'Multivitamin': 'women',
+            'Face Mask': 'women',
+            'Perfume': 'women',
+            'Sunglasses': 'men',
+            'Rolex': 'men',
+            'Necklace': 'women',
+            'Speedy': 'women'
+        };
+
+        function getProductCategory(title) {
+            for (const [keyword, category] of Object.entries(productCategories)) {
+                if (title.toLowerCase().includes(keyword.toLowerCase())) {
+                    return category;
+                }
+            }
+            return 'other';
+        }
+
+        function updateCartCount() {
+            document.getElementById('count').textContent = cart.length;
+            document.getElementById('item-count').textContent = cart.length;
+        }
+
+        function renderCart() {
+            const listContainer = document.getElementById('cart-items-list');
+            const searchTerm = document.getElementById('cart-search').value.toLowerCase();
+
+            if (cart.length === 0) {
+                listContainer.innerHTML = `
+                    <div style="text-align: center; padding: 50px; background: var(--secondary-dark); border-radius: 15px; border: 1px solid var(--border-color);">
+                        <h3 style="color: var(--text-muted); margin-bottom: 20px;">🛒 Your cart is empty</h3>
+                        <p style="color: var(--text-muted); margin-bottom: 30px;">Add some amazing products to get started!</p>
+                        <button onclick="window.location.href='product.html'" style="background: var(--accent-blue); color: var(--text-light); border: none; padding: 15px 30px; border-radius: 10px; cursor: pointer; font-weight: bold;">Browse Products</button>
+                    </div>
+                `;
+                updateTotals();
+                return;
+            }
+
+            // Filter and sort cart items
+            let filteredCart = cart.filter(item => {
+                const matchesSearch = item.title.toLowerCase().includes(searchTerm);
+                const matchesCategory = currentCategory === 'all' || getProductCategory(item.title) === currentCategory;
+                return matchesSearch && matchesCategory;
+            });
+
+            // Sort items
+            filteredCart.sort((a, b) => {
+                switch(currentSort) {
+                    case 'price-low':
+                        return a.price - b.price;
+                    case 'price-high':
+                        return b.price - a.price;
+                    case 'category':
+                        return getProductCategory(a.title).localeCompare(getProductCategory(b.title));
+                    default: // name
+                        return a.title.localeCompare(b.title);
+                }
+            });
+
+            // Group by category
+            const groupedItems = {};
+            filteredCart.forEach((item, index) => {
+                const category = getProductCategory(item.title);
+                if (!groupedItems[category]) {
+                    groupedItems[category] = [];
+                }
+                groupedItems[category].push({ ...item, originalIndex: cart.indexOf(item) });
+            });
+
+            // Render grouped items
+            let html = '';
+            for (const [category, items] of Object.entries(groupedItems)) {
+                const categoryTotal = items.reduce((sum, item) => sum + item.price, 0);
+                const categoryEmoji = {
+                    'electronics': '📱',
+                    'gadgets': '🎮',
+                    'men': '👔',
+                    'women': '👗',
+                    'home': '🏠',
+                    'other': '📦'
+                }[category] || '📦';
+
+                html += `
+                    <div class="category-section" style="margin-bottom: 30px;">
+                        <div class="category-header" style="background: var(--accent-dark); padding: 15px; border-radius: 10px; margin-bottom: 15px; border: 1px solid var(--border-color);">
+                            <h3 style="color: var(--accent-blue); margin: 0; display: inline-block;">
+                                ${categoryEmoji} ${category.charAt(0).toUpperCase() + category.slice(1)}
+                            </h3>
+                            <span style="color: var(--text-muted); float: right;">
+                                ${items.length} item(s) • Subtotal: ₦${categoryTotal.toLocaleString()}
+                            </span>
+                        </div>
+                        <div class="category-items">
+                `;
+
+                items.forEach(item => {
+                    html += `
+                        <div class="cart-item" style="background: var(--secondary-dark); border: 1px solid var(--border-color); border-radius: 10px; margin-bottom: 10px;">
+                            <div class="item-details" style="display: flex; align-items: center; gap: 15px; padding: 20px;">
+                                <div class="item-image" style="width: 80px; height: 80px; background: var(--accent-dark); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 2rem;">
+                                    ${categoryEmoji}
+                                </div>
+                                <div class="item-info" style="flex: 1;">
+                                    <h4 style="color: var(--text-light); margin: 0 0 5px 0; font-size: 1.1rem;">${item.title}</h4>
+                                    <p style="color: var(--text-muted); margin: 0; font-size: 0.9rem;">SKU: #CZ-00${item.id || Math.floor(Math.random() * 1000)}</p>
+                                    <div class="item-actions" style="margin-top: 10px; display: flex; gap: 10px; align-items: center;">
+                                        <div class="quantity-controls" style="display: flex; align-items: center; gap: 5px;">
+                                            <button onclick="changeQuantity(${item.originalIndex}, -1)" style="background: var(--accent-dark); color: var(--text-light); border: 1px solid var(--border-color); width: 30px; height: 30px; border-radius: 50%; cursor: pointer;">-</button>
+                                            <span style="color: var(--text-light); min-width: 30px; text-align: center;">${item.quantity || 1}</span>
+                                            <button onclick="changeQuantity(${item.originalIndex}, 1)" style="background: var(--accent-dark); color: var(--text-light); border: 1px solid var(--border-color); width: 30px; height: 30px; border-radius: 50%; cursor: pointer;">+</button>
+                                        </div>
+                                        <button onclick="saveForLater(${item.originalIndex})" style="background: var(--accent-purple); color: var(--text-light); border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 0.8rem;">💝 Save</button>
+                                        <button onclick="removeItem(${item.originalIndex})" style="background: var(--accent-red); color: var(--text-light); border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 0.8rem;">🗑️ Remove</button>
+                                    </div>
+                                </div>
+                                <div class="item-price" style="text-align: right;">
+                                    <div style="color: var(--accent-gold); font-size: 1.2rem; font-weight: bold;">₦${item.price.toLocaleString()}</div>
+                                    <div style="color: var(--text-muted); font-size: 0.8rem;">each</div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                html += '</div></div>';
+            }
+
+            listContainer.innerHTML = html;
+            updateTotals();
+            renderWishlist();
+        }
+
+        function changeQuantity(index, change) {
+            if (!cart[index].quantity) cart[index].quantity = 1;
+            cart[index].quantity += change;
+            if (cart[index].quantity <= 0) {
+                removeItem(index);
+                return;
+            }
+            localStorage.setItem('cozys_cart', JSON.stringify(cart));
+            renderCart();
+        }
+
+        function removeItem(index) {
+            cart.splice(index, 1);
+            localStorage.setItem('cozys_cart', JSON.stringify(cart));
+            renderCart();
+        }
+
+        function saveForLater(index) {
+            const item = cart.splice(index, 1)[0];
+            wishlist.push(item);
+            localStorage.setItem('cozys_cart', JSON.stringify(cart));
+            localStorage.setItem('cozys_wishlist', JSON.stringify(wishlist));
+            renderCart();
+        }
+
+        function renderWishlist() {
+            const wishlistContainer = document.getElementById('wishlist-items');
+            const wishlistCount = document.getElementById('wishlist-count');
+
+            wishlistCount.textContent = wishlist.length;
+
+            if (wishlist.length === 0) {
+                wishlistContainer.innerHTML = '<p style="color: var(--text-muted); width: 100%;">No items saved for later</p>';
+                return;
+            }
+
+            wishlistContainer.innerHTML = wishlist.map((item, index) => `
+                <div class="wishlist-item" style="background: var(--accent-dark); padding: 15px; border-radius: 10px; border: 1px solid var(--border-color); min-width: 200px;">
+                    <div style="color: var(--text-light); font-weight: bold; margin-bottom: 5px;">${item.title}</div>
+                    <div style="color: var(--accent-gold); margin-bottom: 10px;">₦${item.price.toLocaleString()}</div>
+                    <div style="display: flex; gap: 5px;">
+                        <button onclick="moveToCart(${index})" style="background: var(--accent-green); color: var(--text-light); border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 0.8rem;">Add to Cart</button>
+                        <button onclick="removeFromWishlist(${index})" style="background: var(--accent-red); color: var(--text-light); border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 0.8rem;">Remove</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function moveToCart(index) {
+            const item = wishlist.splice(index, 1)[0];
+            cart.push(item);
+            localStorage.setItem('cozys_cart', JSON.stringify(cart));
+            localStorage.setItem('cozys_wishlist', JSON.stringify(wishlist));
+            renderCart();
+        }
+
+        function removeFromWishlist(index) {
+            wishlist.splice(index, 1);
+            localStorage.setItem('cozys_wishlist', JSON.stringify(wishlist));
+            renderWishlist();
+        }
+
+        function filterByCategory(category) {
+            currentCategory = category;
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+                btn.style.background = 'var(--accent-dark)';
+                btn.style.border = '1px solid var(--border-color)';
+            });
+            event.target.classList.add('active');
+            event.target.style.background = 'var(--accent-blue)';
+            event.target.style.border = 'none';
+            renderCart();
+        }
+
+        function clearCart() {
+            if (confirm('Are you sure you want to clear your entire cart?')) {
+                cart = [];
+                localStorage.setItem('cozys_cart', JSON.stringify(cart));
+                renderCart();
+            }
+        }
+
+        function applyPromo() {
+            const promoCode = document.getElementById('promo-code').value.toUpperCase();
+            const promoMessage = document.getElementById('promo-message');
+
+            // Simple promo codes
+            const promos = {
+                'WELCOME10': 0.1,
+                'SAVE20': 0.2,
+                'FLASH50': 0.5
+            };
+
+            if (promos[promoCode]) {
+                promoDiscount = promos[promoCode];
+                promoMessage.innerHTML = `✅ ${promoCode} applied! ${promoDiscount * 100}% discount`;
+                promoMessage.style.color = 'var(--accent-green)';
+            } else {
+                promoDiscount = 0;
+                promoMessage.innerHTML = '❌ Invalid promo code';
+                promoMessage.style.color = 'var(--accent-red)';
+            }
+
+            updateTotals();
+        }
+
+        function updateTotals() {
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
+            const discount = subtotal * promoDiscount;
+            const total = subtotal - discount;
+            const savings = discount + (subtotal * 0.05); // Assume 5% regular savings
+
+            document.getElementById('subtotal').textContent = `₦${subtotal.toLocaleString()}`;
+            document.getElementById('total-price').textContent = `₦${total.toLocaleString()}`;
+            document.getElementById('savings').textContent = `₦${savings.toLocaleString()}`;
+
+            updateCartCount();
+        }
+
+        // Event listeners
+        window.onload = function() {
+            renderCart();
+
+            // Search functionality
+            document.getElementById('cart-search').addEventListener('input', renderCart);
+
+            // Sort functionality
+            document.getElementById('sort-cart').addEventListener('change', function() {
+                currentSort = this.value;
+                renderCart();
+            });
+        };
+    </script>
+</body>
+</html>

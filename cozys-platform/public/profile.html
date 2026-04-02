@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title>Profile | Cozy's Enterprise</title>
+    <style>
+        .profile-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .profile-header {
+            background: var(--secondary-dark);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px var(--shadow-color);
+        }
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: var(--accent-blue);
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+        .profile-info h2 {
+            color: var(--text-light);
+            margin-bottom: 10px;
+        }
+        .profile-info p {
+            color: var(--text-muted);
+        }
+        .profile-tabs {
+            display: flex;
+            background: var(--secondary-dark);
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 15px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: 500;
+        }
+        .tab-btn.active {
+            background: var(--accent-blue);
+            color: var(--text-light);
+        }
+        .tab-content {
+            background: var(--secondary-dark);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 15px var(--shadow-color);
+        }
+        .tab-pane {
+            display: none;
+        }
+        .tab-pane.active {
+            display: block;
+        }
+        .order-item, .favorite-item {
+            background: var(--accent-dark);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 1px solid var(--border-color);
+        }
+        .order-header, .favorite-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .order-status, .favorite-price {
+            font-weight: bold;
+            color: var(--accent-gold);
+        }
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .setting-item:last-child {
+            border-bottom: none;
+        }
+        .setting-label {
+            color: var(--text-light);
+        }
+        .setting-value {
+            color: var(--text-muted);
+        }
+        .btn-edit {
+            background: var(--accent-blue);
+            color: var(--text-light);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        .btn-edit:hover {
+            background: var(--accent-purple);
+        }
+        .empty-state {
+            text-align: center;
+            color: var(--text-muted);
+            padding: 40px;
+        }
+        .empty-state h3 {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">COZY'S</div>
+        <div style="display: flex; gap: 20px; align-items: center;">
+            <a href="index.html" style="color: var(--text-light); text-decoration: none;">🏠 Home</a>
+            <a href="product.html" style="color: var(--text-light); text-decoration: none;">🛍️ Shop</a>
+            <div style="color: var(--text-light); cursor: pointer;" onclick="window.location.href='cart.html'">🛒 Cart: <span id="cart-count">0</span> items</div>
+        </div>
+    </nav>
+
+    <div class="profile-container">
+        <div class="profile-header">
+            <div class="profile-avatar" id="user-avatar">👤</div>
+            <div class="profile-info">
+                <h2 id="user-name">Welcome Back!</h2>
+                <p id="user-email">Please sign in to view your profile</p>
+            </div>
+        </div>
+
+        <div class="profile-tabs">
+            <button class="tab-btn active" onclick="showTab('orders', this)">📦 Orders</button>
+            <button class="tab-btn" onclick="showTab('favorites', this)">❤️ Favorites</button>
+            <button class="tab-btn" onclick="showTab('settings', this)">⚙️ Settings</button>
+        </div>
+
+        <div class="tab-content">
+            <div id="orders" class="tab-pane active">
+                <div class="empty-state">
+                    <h3>No orders yet</h3>
+                    <p>Start shopping to see your order history here</p>
+                    <a href="product.html" class="btn-profile" style="margin-top: 20px;">Start Shopping</a>
+                </div>
+            </div>
+
+            <div id="favorites" class="tab-pane">
+                <div class="empty-state">
+                    <h3>No favorites yet</h3>
+                    <p>Add items to your favorites while shopping</p>
+                    <a href="product.html" class="btn-profile" style="margin-top: 20px;">Browse Products</a>
+                </div>
+            </div>
+
+            <div id="settings" class="tab-pane">
+                <div class="setting-item">
+                    <span class="setting-label">Email Address</span>
+                    <span class="setting-value" id="settings-email">Not signed in</span>
+                </div>
+                <div class="setting-item">
+                    <span class="setting-label">Account Type</span>
+                    <span class="setting-value">Premium Member</span>
+                </div>
+                <div class="setting-item">
+                    <span class="setting-label">Wallet Balance</span>
+                    <span class="setting-value" id="wallet-balance">₦0.00</span>
+                </div>
+                <div class="setting-item">
+                    <span class="setting-label">Notifications</span>
+                    <button class="btn-edit">Edit</button>
+                </div>
+                <div class="setting-item">
+                    <span class="setting-label">Privacy Settings</span>
+                    <button class="btn-edit">Edit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Load user data from localStorage and API
+        async function loadUserData() {
+            const token = localStorage.getItem('token');
+            const userEmail = localStorage.getItem('userEmail');
+            const wallet = localStorage.getItem('wallet') || 0;
+
+            if (token && userEmail) {
+                document.getElementById('user-name').textContent = 'Welcome Back!';
+                document.getElementById('user-email').textContent = userEmail;
+                document.getElementById('settings-email').textContent = userEmail;
+                document.getElementById('wallet-balance').textContent = '₦' + wallet;
+
+                // Load user orders and favorites
+                await loadUserOrders();
+                await loadUserFavorites();
+            } else {
+                // Redirect to login if not authenticated
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 2000);
+            }
+        }
+
+        // Load user orders from API
+        async function loadUserOrders() {
+            try {
+                const token = localStorage.getItem('token');
+                const response = await fetch('http://localhost:3000/api/orders', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    const orders = await response.json();
+                    displayOrders(orders);
+                }
+            } catch (error) {
+                console.error('Error loading orders:', error);
+            }
+        }
+
+        // Load user favorites from API
+        async function loadUserFavorites() {
+            try {
+                const token = localStorage.getItem('token');
+                const response = await fetch('http://localhost:3000/api/favorites', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    const favorites = await response.json();
+                    displayFavorites(favorites);
+                }
+            } catch (error) {
+                console.error('Error loading favorites:', error);
+            }
+        }
+
+        // Display orders in the UI
+        function displayOrders(orders) {
+            const ordersContainer = document.getElementById('orders');
+            
+            if (orders && orders.length > 0) {
+                const ordersHtml = orders.map(order => `
+                    <div class="order-item">
+                        <div class="order-header">
+                            <span>Order #${order.id}</span>
+                            <span class="order-status">${order.status}</span>
+                        </div>
+                        <p>${order.items.length} items - Total: ₦${order.total}</p>
+                        <small>Ordered on ${new Date(order.date).toLocaleDateString()}</small>
+                    </div>
+                `).join('');
+                ordersContainer.innerHTML = ordersHtml;
+            } else {
+                ordersContainer.innerHTML = `
+                    <div class="empty-state">
+                        <h3>No orders yet</h3>
+                        <p>Start shopping to see your order history here</p>
+                        <a href="product.html" class="btn-profile" style="margin-top: 20px;">Start Shopping</a>
+                    </div>
+                `;
+            }
+        }
+
+        // Display favorites in the UI
+        function displayFavorites(favorites) {
+            const favoritesContainer = document.getElementById('favorites');
+            
+            if (favorites && favorites.length > 0) {
+                const favoritesHtml = favorites.map(item => `
+                    <div class="favorite-item">
+                        <div class="favorite-header">
+                            <span>${item.name}</span>
+                            <span class="favorite-price">₦${item.price}</span>
+                        </div>
+                        <p>${item.description}</p>
+                    </div>
+                `).join('');
+                favoritesContainer.innerHTML = favoritesHtml;
+            } else {
+                favoritesContainer.innerHTML = `
+                    <div class="empty-state">
+                        <h3>No favorites yet</h3>
+                        <p>Add items to your favorites while shopping</p>
+                        <a href="product.html" class="btn-profile" style="margin-top: 20px;">Browse Products</a>
+                    </div>
+                `;
+            }
+        }
+
+        // Tab switching functionality
+        function showTab(tabName, buttonElement) {
+            // Hide all tab panes
+            const tabPanes = document.querySelectorAll('.tab-pane');
+            tabPanes.forEach(pane => pane.classList.remove('active'));
+
+            // Remove active class from all tab buttons
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            tabBtns.forEach(btn => btn.classList.remove('active'));
+
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            buttonElement.classList.add('active');
+        }
+
+        // Load cart count
+        function loadCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            document.getElementById('cart-count').textContent = cart.length;
+        }
+
+        // Initialize page
+        loadUserData();
+        loadCartCount();
+    </script>
+</body>
+</html>

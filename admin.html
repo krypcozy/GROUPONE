@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title>Cozy’s | Enterprise Admin</title>
+    <style>
+        .admin-layout { display: flex; min-height: 100vh; }
+        .sidebar { width: 260px; background: #121212; color: white; padding: 30px 0; }
+        .sidebar-item { padding: 15px 30px; cursor: pointer; border-left: 4px solid transparent; transition: 0.3s; }
+        .sidebar-item:hover, .sidebar-item.active { background: #1a1a1b; border-left-color: #b89552; color: #b89552; }
+        
+        .main-content { flex: 1; padding: 40px; background: #f4f4f4; }
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 40px; }
+        .stat-card { background: white; padding: 25px; border-radius: 4px; border-top: 4px solid #b89552; }
+        
+        table { width: 100%; border-collapse: collapse; background: white; border-radius: 4px; overflow: hidden; }
+        th { background: #eee; text-align: left; padding: 15px; font-size: 0.85rem; text-transform: uppercase; }
+        td { padding: 15px; border-bottom: 1px solid #f0f0f0; }
+        .status { padding: 5px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; }
+        .status-active { background: #e6f4ea; color: #1e7e34; }
+        .status-low { background: #fff4e5; color: #b7791f; }
+    </style>
+</head>
+<body>
+    <div class="admin-layout">
+        <div class="sidebar">
+            <div class="logo" style="padding: 0 30px 40px;">COZY’S</div>
+            <div class="sidebar-item active">Inventory Management</div>
+            <div class="sidebar-item">Order Tracking</div>
+            <div class="sidebar-item">User Management</div>
+            <div class="sidebar-item">Wallet Ledger</div>
+        </div>
+
+        <div class="main-content">
+            <header style="display:flex; justify-content: space-between; align-items:center; margin-bottom: 30px;">
+                <h1>Product Inventory</h1>
+                <button class="btn" style="width:auto; padding: 10px 30px;" onclick="openModal()">+ Upload New Item</button>
+            </header>
+
+            <div class="stats-grid">
+                <div class="stat-card"><h3>Total Products</h3><p style="font-size:1.5rem; font-weight:bold;">1,248</p></div>
+                <div class="stat-card"><h3>Active Orders</h3><p style="font-size:1.5rem; font-weight:bold;">42</p></div>
+                <div class="stat-card"><h3>Total Revenue</h3><p style="font-size:1.5rem; font-weight:bold;">₦18.4M</p></div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product SKU</th>
+                        <th>Item Name</th>
+                        <th>Category</th>
+                        <th>Price (₦)</th>
+                        <th>Stock Level</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="inventory-body">
+                    <tr>
+                        <td>#CZ-9901</td>
+                        <td><strong>Executive Office Desk</strong></td>
+                        <td>Furniture</td>
+                        <td>350,000</td>
+                        <td>14</td>
+                        <td><span class="status status-active">Active</span></td>
+                    </tr>
+                    <tr>
+                        <td>#CZ-9902</td>
+                        <td><strong>Industrial Generator 50kVA</strong></td>
+                        <td>Large Goods</td>
+                        <td>4,200,000</td>
+                        <td>2</td>
+                        <td><span class="status status-low">Low Stock</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div id="uploadModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); z-index:1000;">
+        <div class="card" style="max-width:600px; margin: 50px auto; position:relative;">
+            <span onclick="closeModal()" style="position:absolute; right:20px; top:10px; cursor:pointer; font-size:1.5rem;">&times;</span>
+            <h2>Add New Product</h2>
+            <form id="uploadForm" enctype="multipart/form-data">
+                <label>Product Title</label>
+                <input type="text" id="title" placeholder="e.g. Wireless Headphones" required>
+                <label>Description</label>
+                <textarea id="description" placeholder="Product description..." rows="3" required></textarea>
+                <div style="display:flex; gap:15px;">
+                    <div style="flex:1;"><label>Price (₦)</label><input type="number" id="price" placeholder="0.00" required></div>
+                    <div style="flex:1;"><label>Category</label>
+                        <select id="category" style="width:100%; padding:12px; border:1px solid #ddd;">
+                            <option>Electronics</option>
+                            <option>Home & Furniture</option>
+                            <option>Appliances</option>
+                            <option>Fashion</option>
+                            <option>Accessories</option>
+                            <option>women's clothing</option>
+                        </select>
+                    </div>
+                </div>
+                <label>Product Image</label>
+                <input type="file" id="image" accept="image/*" required>
+                <button type="submit" class="btn">Add Product</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openModal() { document.getElementById('uploadModal').style.display = 'block'; }
+        function closeModal() { document.getElementById('uploadModal').style.display = 'none'; }
+        
+        document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const file = document.getElementById('image').files[0];
+            let imageData = '';
+            if (file) {
+                imageData = await toBase64(file);
+            }
+
+            const data = {
+                title: document.getElementById('title').value,
+                description: document.getElementById('description').value,
+                price: document.getElementById('price').value,
+                category: document.getElementById('category').value,
+                image: imageData
+            };
+
+            try {
+                const res = await fetch('http://localhost:3000/api/products', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                const result = await res.json();
+                if (result.success) {
+                    alert('Product added successfully!');
+                    closeModal();
+                } else {
+                    alert('Failed to add product');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error adding product');
+            }
+        });
+
+        function toBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            });
+        }
+    </script>
+</body>
+</html>

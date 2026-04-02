@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <title>Login | Cozy’s</title>
+</head>
+<body>
+    <div class="navbar"><div class="logo">COZY</div></div>
+    <div class="container">
+        <div class="auth-box">
+            <h2 style="text-align: center; letter-spacing: 1px;">SECURE LOGIN</h2>
+            <form id="loginForm">
+                <input type="email" id="loginEmail" placeholder="Email Address" required>
+                <input type="password" id="loginPass" placeholder="Password" required>
+                <button type="submit" class="btn-gold">Access Dashboard</button>
+            </form>
+            <p style="text-align: center; margin-top: 20px; font-size: 0.85rem;">
+                New to Cozy? <a href="regiser.html" style="color: #b89552; text-decoration: none;">Create Account</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault(); // Prevents page from refreshing
+
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPass').value;
+
+            try {
+                const response = await fetch('http://localhost:3000/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // 1. Save the security token (JWT) so other pages know you're logged in
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('wallet', data.wallet);
+                    localStorage.setItem('userEmail', email);
+
+                    // 2. Redirect to the products page
+                    window.location.href = 'product.html';
+                } else {
+                    alert('Login Failed: ' + data.message);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Server connection failed.');
+            }
+        });
+    </script>
+</body>
+</html>

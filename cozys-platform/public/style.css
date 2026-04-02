@@ -1,0 +1,266 @@
+:root {
+    --primary-dark: #1a1a1a;
+    --secondary-dark: #2d2d2d;
+    --accent-dark: #3a3a3a;
+    --text-light: #ffffff;
+    --text-muted: #b0b0b0;
+    --text-dark: #333333;
+    --accent-blue: #4a90e2;
+    --accent-purple: #9b59b6;
+    --accent-green: #2ecc71;
+    --accent-gold: #f39c12;
+    --accent-red: #e74c3c;
+    --border-color: #404040;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    background: var(--primary-dark);
+    margin: 0;
+    color: var(--text-light);
+    padding-bottom: 60px;
+}
+
+/* Header Styling */
+nav {
+    background: linear-gradient(135deg, var(--secondary-dark), var(--accent-dark));
+    padding: 20px 8%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--accent-blue);
+    box-shadow: 0 2px 10px var(--shadow-color);
+}
+.logo {
+    color: var(--text-light);
+    font-weight: 900;
+    font-size: 24px;
+    letter-spacing: 3px;
+    text-shadow: 0 2px 4px var(--shadow-color);
+}
+
+/* Grid for Large Goods */
+.product-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+    padding: 50px 8%;
+}
+.product-card {
+    background: var(--secondary-dark);
+    border: 1px solid var(--border-color);
+    transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px var(--shadow-color);
+}
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px var(--shadow-color);
+    border-color: var(--accent-blue);
+}
+.product-info {
+    padding: 20px;
+    color: var(--text-light);
+}
+.price {
+    color: var(--accent-gold);
+    font-size: 20px;
+    font-weight: bold;
+}
+.description {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin: 10px 0;
+}
+.rating {
+    font-size: 0.9rem;
+    color: var(--accent-gold);
+    margin: 5px 0;
+}
+
+.categories {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+.category-btn {
+    background: var(--accent-dark);
+    color: var(--text-light);
+    border: 1px solid var(--border-color);
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 20px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+.category-btn.active, .category-btn:hover {
+    background: var(--accent-blue);
+    color: var(--text-light);
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 15px rgba(74, 144, 226, 0.3);
+}
+
+/* Form Styling */
+.auth-box {
+    max-width: 450px;
+    margin: 80px auto;
+    background: var(--secondary-dark);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 20px 50px var(--shadow-color);
+    border: 1px solid var(--border-color);
+}
+.btn-gold {
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+    color: var(--text-light);
+    border: none;
+    padding: 15px;
+    width: 100%;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: 10px;
+    transition: 0.3s;
+    box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
+}
+.btn-gold:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(74, 144, 226, 0.4);
+}
+input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--accent-dark);
+    color: var(--text-light);
+    outline-color: var(--accent-blue);
+}
+input::placeholder {
+    color: var(--text-muted);
+}
+
+.search-bar {
+    display: flex;
+    margin-bottom: 20px;
+    background: var(--secondary-dark);
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px var(--shadow-color);
+    border: 1px solid var(--border-color);
+}
+.filters {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+.filter-btn {
+    background: linear-gradient(135deg, var(--accent-purple), var(--accent-green));
+    color: var(--text-light);
+    border: none;
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 15px;
+    font-weight: bold;
+    transition: 0.3s;
+    box-shadow: 0 2px 8px rgba(155, 89, 182, 0.3);
+}
+.filter-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(155, 89, 182, 0.4);
+}
+
+.banner {
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+    color: var(--text-light);
+    padding: 15px;
+    text-align: center;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
+}
+
+.rating {
+    font-size: 0.9rem;
+    color: var(--accent-gold);
+    margin: 5px 0;
+}
+.sales {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+.urgency {
+    color: var(--accent-red);
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--secondary-dark);
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    z-index: 1000;
+    box-shadow: 0 -2px 10px var(--shadow-color);
+}
+.nav-item {
+    text-align: center;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    transition: 0.3s;
+}
+.nav-item.active {
+    color: var(--accent-blue);
+    font-weight: bold;
+}
+.nav-item:hover {
+    color: var(--text-light);
+}
+
+/* Cart specific styles */
+.cart-item {
+    background: var(--secondary-dark) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 10px !important;
+    margin-bottom: 10px !important;
+    transition: 0.3s;
+}
+
+.cart-item:hover {
+    border-color: var(--accent-blue) !important;
+    box-shadow: 0 4px 15px rgba(74, 144, 226, 0.2) !important;
+}
+
+.category-section {
+    margin-bottom: 30px;
+}
+
+.category-header {
+    background: var(--accent-dark) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 10px !important;
+}
+
+.wishlist-item {
+    background: var(--accent-dark) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 10px !important;
+    transition: 0.3s;
+}
+
+.wishlist-item:hover {
+    border-color: var(--accent-purple) !important;
+    box-shadow: 0 4px 15px rgba(155, 89, 182, 0.2) !important;
+}

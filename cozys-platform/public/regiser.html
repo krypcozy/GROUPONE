@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title>Register | Cozy’s Enterprise</title>
+</head>
+<body>
+    <div class="navbar"><div class="logo">COZY’S</div></div>
+    <div class="container">
+        <div class="auth-box">
+            <h2 style="text-align: center; letter-spacing: 1px;">CREATE ACCOUNT</h2>
+            <p style="text-align: center; color: #666; font-size: 0.9rem; margin-bottom: 30px;">Join our exclusive retail network.</p>
+            <form id="regForm">
+                <input type="email" id="regEmail" placeholder="Corporate Email Address" required>
+                <input type="password" id="regPass" placeholder="Secure Password" required>
+                <button type="submit" class="btn-gold">Initialize Membership</button>
+            </form>
+            <p style="text-align: center; margin-top: 20px; font-size: 0.85rem;">
+                Already a member? <a href="login.html" style="color: #b89552; text-decoration: none;">Sign In</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('regForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('regEmail').value;
+            const password = document.getElementById('regPass').value;
+            
+            const res = await fetch('http://localhost:3000/api/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            });
+            
+            const data = await res.json();
+            if (data.success) {
+                alert('Account created successfully. Please login.');
+                window.location.href = 'login.html';
+            } else {
+                alert('Registration failed.');
+            }
+        });
+    </script>
+</body>
+</html>
