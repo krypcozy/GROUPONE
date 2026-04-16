@@ -3,43 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="style.css">
-    <title>Register | Cozy’s Enterprise</title>
+    <title>Register | CozyBuy Enterprise</title>
 </head>
 <body>
-    <div class="navbar"><div class="logo">COZY’S</div></div>
+    <div class="navbar"><div class="logo">CozyBuy</div></div>
     <div class="container">
         <div class="auth-box">
             <h2 style="text-align: center; letter-spacing: 1px;">CREATE ACCOUNT</h2>
             <p style="text-align: center; color: #666; font-size: 0.9rem; margin-bottom: 30px;">Join our exclusive retail network.</p>
             <form id="regForm">
-                <input type="email" id="regEmail" placeholder="Corporate Email Address" required>
-                <input type="password" id="regPass" placeholder="Secure Password" required>
-                <button type="submit" class="btn-gold">Initialize Membership</button>
+                <input type="email" id="regEmail" placeholder="Email Address" required>
+                <input type="password" id="regPass" placeholder="Enter Password" required>
+                <button type="submit" class="btn-gold">CREATE ACCOUNT</button>
             </form>
             <p style="text-align: center; margin-top: 20px; font-size: 0.85rem;">
-                Already a member? <a href="login.html" style="color: #b89552; text-decoration: none;">Sign In</a>
+                Already Have Account? <a href="login.html" style="color: #b89552; text-decoration: none;">Sign In</a>
             </p>
         </div>
     </div>
 
     <script>
+        const localApi = 'http://127.0.0.1:3002';
+        const apiBase = ['127.0.0.1', 'localhost'].includes(window.location.hostname) ? localApi : '';
+
         document.getElementById('regForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = document.getElementById('regEmail').value;
             const password = document.getElementById('regPass').value;
-            
-            const res = await fetch('http://localhost:3000/api/register', {
+            const endpoint = `${apiBase}/api/register`;
+            console.log('Register endpoint:', endpoint);
+
+            const res = await fetch(endpoint, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password })
             });
             
-            const data = await res.json();
+            const text = await res.text();
+            console.log('Register response status:', res.status, 'body:', text);
+            let data;
+            try {
+                data = JSON.parse(text);
+            } catch (parseError) {
+                throw new Error(`Failed to parse JSON response: ${parseError.message}. Response body: ${text}`);
+            }
             if (data.success) {
                 alert('Account created successfully. Please login.');
                 window.location.href = 'login.html';
             } else {
-                alert('Registration failed.');
+                alert('Registration failed: ' + (data.message || 'Please try again.'));
             }
         });
     </script>

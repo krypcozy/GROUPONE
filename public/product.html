@@ -2,11 +2,11 @@
 <html>
 <head>
     <link rel="stylesheet" href="style.css">
-    <title>Cozy’s | Corporate Retail</title>
+    <title>CozyBuy | Corporate Retail</title>
 </head>
 <body>
     <nav>
-        <div class="logo">COZY’S</div>
+        <div class="logo">CozyBuy</div>
         <div style="display: flex; gap: 20px; align-items: center;">
             <div style="color:white">Wallet: <span id="balance">₦0.00</span></div>
             <div style="color:white; cursor: pointer;" onclick="window.location.href='cart.html'">Cart: <span id="cart-count">0</span> items</div>
@@ -655,7 +655,7 @@
                 return;
             }
 
-            fetch('http://localhost:3000/api/favorites', {
+            fetch('/api/favorites', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

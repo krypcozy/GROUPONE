@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="style.css">
-    <title>Profile | Cozy's Enterprise</title>
+    <title>Profile | CozyBuy Enterprise</title>
     <style>
         .profile-container {
             max-width: 1200px;
@@ -126,7 +126,7 @@
 </head>
 <body>
     <nav>
-        <div class="logo">COZY'S</div>
+        <div class="logo">CozyBuy</div>
         <div style="display: flex; gap: 20px; align-items: center;">
             <a href="index.html" style="color: var(--text-light); text-decoration: none;">🏠 Home</a>
             <a href="product.html" style="color: var(--text-light); text-decoration: none;">🛍️ Shop</a>
@@ -219,7 +219,7 @@
         async function loadUserOrders() {
             try {
                 const token = localStorage.getItem('token');
-                const response = await fetch('http://localhost:3000/api/orders', {
+                const response = await fetch('/api/orders', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -240,7 +240,7 @@
         async function loadUserFavorites() {
             try {
                 const token = localStorage.getItem('token');
-                const response = await fetch('http://localhost:3000/api/favorites', {
+                const response = await fetch('/api/favorites', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -327,7 +327,7 @@
 
         // Load cart count
         function loadCartCount() {
-            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const cart = JSON.parse(localStorage.getItem('cozys_cart') || '[]');
             document.getElementById('cart-count').textContent = cart.length;
         }
 
