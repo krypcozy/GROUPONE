@@ -8,10 +8,12 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 
 const app = express();
-const SECRET_KEY = "COZY_ELITE_99"; // Change this in production
+const SECRET_KEY = process.env.SECRET_KEY || "COZY_ELITE_99"; // Change this in production
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://emmanueloche096_db_user:UiyBvStbftVVysUe@strange.zf9cc3p.mongodb.net/STRANGE';
+const PORT = process.env.PORT || 3002;
 
 // MongoDB connection
-mongoose.connect('mongodb+srv://emmanueloche096_db_user:UiyBvStbftVVysUe@strange.zf9cc3p.mongodb.net/STRANGE')
+mongoose.connect(MONGODB_URI)
 .then(() => console.log('✅ Connected to MongoDB'))
 .catch(err => console.error('❌ MongoDB connection error:', err));
 
@@ -54,7 +56,7 @@ if (!fs.existsSync(uploadsDir)) {
     fs.mkdirSync(uploadsDir, { recursive: true });
 }
 
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // AUTHENTICATION API
 app.post('/api/register', async (req, res) => {
@@ -295,5 +297,12 @@ app.post('/api/favorites', async (req, res) => {
     }
 });
 
-const PORT = process.env.PORT || 3002;
+// Serve the frontend app for all non-API routes
+app.get('*', (req, res) => {
+    if (req.path.startsWith('/api/')) {
+        return res.status(404).json({ success: false, message: 'API endpoint not found' });
+    }
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
 app.listen(PORT, () => console.log(`Cozy's Enterprise running on port ${PORT}`));
