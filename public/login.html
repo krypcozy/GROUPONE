@@ -22,7 +22,7 @@
 
     <script>
         const localApi = 'http://127.0.0.1:3002';
-        const apiBase = ['127.0.0.1', 'localhost'].includes(window.location.hostname) ? localApi : '';
+        const apiBase = ['127.0.0.1', 'localhost'].includes(window.location.hostname) ? localApi : window.location.origin;
 
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault(); // Prevents page from refreshing
