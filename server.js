@@ -297,11 +297,13 @@ app.post('/api/favorites', async (req, res) => {
     }
 });
 
-// Serve the frontend app for all non-API routes
-app.get('*', (req, res) => {
-    if (req.path.startsWith('/api/')) {
-        return res.status(404).json({ success: false, message: 'API endpoint not found' });
-    }
+// Serve API 404 for unknown API routes
+app.use('/api', (req, res) => {
+    res.status(404).json({ success: false, message: 'API endpoint not found' });
+});
+
+// Serve the frontend app for all other routes
+app.use((req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
